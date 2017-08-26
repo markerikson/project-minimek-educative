@@ -3,8 +3,6 @@ import {Header} from "semantic-ui-react";
 
 import './App.css';
 
-import SampleComponent from "./SampleComponent";
-
 class App extends Component {
     render() {
         return (
@@ -12,7 +10,6 @@ class App extends Component {
                 <div className="App-header">
                     <Header inverted as="h1">Project Mini-Mek</Header>
                 </div>
-                <SampleComponent />
             </div>
         );
     }
