@@ -11,7 +11,7 @@ const sampleData = {
             gunnery : 2,
             piloting : 2,
             age : 52,
-            mechType : "WHM-6R",
+            mech : 1,
         },
         {
             id : 2,
@@ -20,7 +20,7 @@ const sampleData = {
             gunnery : 3,
             piloting : 4,
             age : 43,
-            mechType : "MAD-3R",
+            mech : 2,
         },
         {
             id : 3,
@@ -29,7 +29,7 @@ const sampleData = {
             gunnery : 4,
             piloting : 5,
             age : 27,
-            mechType : "CRD-3R",
+            mech : 3,
         },
         {
             id : 4,
@@ -38,7 +38,7 @@ const sampleData = {
             gunnery : 3,
             piloting : 4,
             age : 34,
-            mechType : "GRF-1N",
+            mech : 4,
         },
         {
             id : 5,
@@ -47,7 +47,7 @@ const sampleData = {
             gunnery : 3,
             piloting : 4,
             age : 41,
-            mechType : "ARC-2R",
+            mech : 5,
         },
         {
             id : 6,
@@ -56,7 +56,7 @@ const sampleData = {
             gunnery : 4,
             piloting : 4,
             age : 31,
-            mechType : "ARC-2R",
+            mech : 6,
         },
         {
             id : 7,
@@ -65,7 +65,7 @@ const sampleData = {
             gunnery : 3,
             piloting : 4,
             age : 39,
-            mechType : "WSP-1A",
+            mech : 7,
         },
         {
             id : 8,
@@ -74,7 +74,7 @@ const sampleData = {
             gunnery : 4,
             piloting : 5,
             age : 36,
-            mechType : "WSP-1A",
+            mech : 8,
         },
         {
             id : 9,
@@ -83,7 +83,7 @@ const sampleData = {
             gunnery : 3,
             piloting : 4,
             age : 40,
-            mechType : "RFL-3N",
+            mech : 9,
         },
         {
             id : 10,
@@ -92,7 +92,7 @@ const sampleData = {
             gunnery : 4,
             piloting : 5,
             age : 37,
-            mechType : "PXH-1K",
+            mech : 10,
         },
         {
             id : 11,
@@ -101,7 +101,7 @@ const sampleData = {
             gunnery : 3,
             piloting : 4,
             age : 32,
-            mechType : "STG-3R",
+            mech : 11,
         },
         {
             id : 12,
@@ -110,7 +110,7 @@ const sampleData = {
             gunnery : 3,
             piloting : 5,
             age : 29,
-            mechType : "STG-3R",
+            mech : 12,
         },
     ],
     designs : [

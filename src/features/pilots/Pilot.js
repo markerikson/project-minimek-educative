@@ -1,4 +1,4 @@
-import {Model, attr} from "redux-orm";
+import {Model, attr, fk} from "redux-orm";
 
 
 export default class Pilot extends Model {
@@ -11,7 +11,7 @@ export default class Pilot extends Model {
         gunnery : attr(),
         piloting : attr(),
         age : attr(),
-        mechType : attr()
+        mech : fk("Mech")
     }
 
     static parse(pilotData) {
