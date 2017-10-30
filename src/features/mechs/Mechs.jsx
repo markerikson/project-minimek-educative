@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {connect} from "react-redux";
 
 import {
     Grid,
@@ -7,61 +6,19 @@ import {
     Header,
 } from "semantic-ui-react";
 
-import orm from "app/orm";
 
 import MechsList from "./MechsList";
 import MechDetails from "./MechDetails";
 
 
-import {selectMech} from "./mechsActions";
-import {selectCurrentMech} from "./mechsSelectors";
-
-
-
-const mapState = (state) => {
-    const session = orm.session(state.entities);
-    const {Mech} = session;
-
-    const mechs = Mech.all().toModelArray().map(mechModel => {
-        const mech = {
-            // Copy the data from the plain JS object
-            ...mechModel.ref,
-            // Provide a default empty object for the relation
-            mechType : {},
-        };
-
-        if(mechModel.type) {
-            // Replace the default object with a copy of the relation's data
-            mech.mechType = {...mechModel.type.ref};
-        }
-
-        return mech;
-    });
-
-    const currentMech = selectCurrentMech(state);
-
-    return {mechs, currentMech}
-}
-
-const actions = {
-    selectMech,
-};
-
-export class Mechs extends Component {
-
+export default class Mechs extends Component {
     render() {
-        const {mechs = [], selectMech, currentMech} = this.props;
-
         return (
             <Segment>
                 <Grid>
                     <Grid.Column width={10}>
                         <Header as="h3">Mechs List</Header>
-                        <MechsList
-                            mechs={mechs}
-                            onMechClicked={selectMech}
-                            currentMech={currentMech}
-                        />
+                        <MechsList />
                     </Grid.Column>
                     <Grid.Column width={6}>
                         <Header as="h3">Mech Details</Header>
@@ -74,5 +31,3 @@ export class Mechs extends Component {
         );
     }
 }
-
-export default connect(mapState, actions)(Mechs);
