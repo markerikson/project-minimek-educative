@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Form, Dropdown, Segment} from "semantic-ui-react";
 
+import {getValueFromEvent} from "common/utils/clientUtils";
+
 import {selectUnitInfo} from "./unitInfoSelectors";
 import {updateUnitInfo} from "./unitInfoActions";
 
@@ -32,9 +34,7 @@ class UnitInfo extends Component {
     }
 
     onNameChanged = (e) => {
-        const {name, value} = e.target;
-
-        const newValues = { [name] : value};
+        const newValues = getValueFromEvent(e);
         this.props.updateUnitInfo(newValues);
     }
 
