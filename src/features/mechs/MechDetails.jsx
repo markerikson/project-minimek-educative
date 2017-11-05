@@ -1,9 +1,41 @@
 import React from "react";
+import {connect} from "react-redux";
 import {Form} from "semantic-ui-react";
 
-import {getWeightClass} from "./mechsSelectors";
+import orm from "app/orm";
 
-const MechDetails = ({mech={}}) => {
+import {getWeightClass, selectCurrentMech} from "./mechsSelectors";
+
+
+const mapState = (state) => {
+    let mech;
+
+    const currentMech = selectCurrentMech(state);
+
+    const session = orm.session(state.entities);
+    const {Mech} = session;
+
+    if(Mech.hasId(currentMech)) {
+        const mechModel = Mech.withId(currentMech);
+
+        mech = {
+            // Copy the data from the plain JS object
+            ...mechModel.ref,
+            // Provide a default empty object for the relation
+            mechType : {},
+        };
+
+        if(mechModel.type) {
+            // Replace the default object with a copy of the relation's data
+            mech.mechType = {...mechModel.type.ref};
+        }
+    }
+
+    return {mech}
+}
+
+
+export const MechDetails = ({mech={}}) => {
     const {
         id = "",
         type = "",
@@ -24,6 +56,7 @@ const MechDetails = ({mech={}}) => {
                 <input
                     placeholder="ID"
                     value={id}
+                    disabled={true}
                 />
             </Form.Field>
             <Form.Field name="name" width={16} >
@@ -31,6 +64,7 @@ const MechDetails = ({mech={}}) => {
                 <input
                     placeholder="Name"
                     value={name}
+                    disabled={true}
                 />
             </Form.Field>
             <Form.Field name="model" width={6} >
@@ -38,22 +72,25 @@ const MechDetails = ({mech={}}) => {
                 <input
                     placeholder="Model"
                     value={type}
+                    disabled={true}
                 />
             </Form.Field>
             <Form.Field name="weight" width={6} >
                 <label>Weight</label>
                 <input
                     value={weight}
+                    disabled={true}
                 />
             </Form.Field>
             <Form.Field name="class" width={6} >
                 <label>Class</label>
                 <input
                     value={weightClass}
+                    disabled={true}
                 />
             </Form.Field>
         </Form>
     );
 }
 
-export default MechDetails;
+export default connect(mapState)(MechDetails);
