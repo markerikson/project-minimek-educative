@@ -80,6 +80,13 @@ export class PilotDetails  extends Component {
         this.props.updateEntity("Pilot", id, newValues);
     }
 
+    onRankChanged = (e, result) => {
+        const newValues = {rank : result.value};
+        const {id} = this.props.pilot;
+
+        this.props.updateEntity("Pilot", id, newValues);
+    }
+
     render() {
         const {pilot={}, pilotIsSelected = false, isEditingPilot = false } = this.props;
         const {startEditingPilot, stopEditingPilot} = this.props;
@@ -117,6 +124,7 @@ export class PilotDetails  extends Component {
                     selection
                     options={RANKS}
                     value={rank}
+                    onChange={this.onRankChanged}
                     disabled={!canStopEditing}
                 />
                 <Form.Field
