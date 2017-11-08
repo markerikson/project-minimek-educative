@@ -15,6 +15,10 @@ export function loadData(state, payload) {
 
     const {pilots, designs, mechs} = payload;
 
+    [Pilot, Mech, MechDesign].forEach(modelType => {
+        modelType.all().toModelArray().forEach(model => model.delete());
+    });
+
     // Insert the data entries into the Session
     pilots.forEach(pilot => Pilot.parse(pilot));
     designs.forEach(design => MechDesign.parse(design));
