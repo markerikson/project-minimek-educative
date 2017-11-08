@@ -4,7 +4,7 @@ import {Form, Dropdown, Grid, Button} from "semantic-ui-react";
 
 import FormEditWrapper from "common/components/FormEditWrapper";
 
-import orm from "app/orm";
+import {getEntitiesSession} from "features/entities/entitySelectors";
 
 import {
     selectCurrentPilot,
@@ -53,7 +53,7 @@ const mapState = (state) => {
 
     const currentPilot = selectCurrentPilot(state);
 
-    const session = orm.session(state.entities);
+    const session = getEntitiesSession(state);
     const {Pilot} = session;
 
     if(Pilot.hasId(currentPilot)) {

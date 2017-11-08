@@ -2,12 +2,12 @@ import React from "react";
 import {connect} from "react-redux";
 import {Table} from "semantic-ui-react";
 
-import orm from "app/orm";
+import {getEntitiesSession} from "features/entities/entitySelectors";
 
 import {getWeightClass} from "../mechsSelectors";
 
 const mapState = (state, ownProps) => {
-    const session = orm.session(state.entities);
+    const session = getEntitiesSession(state);
     const {Mech} = session;
 
     let mech;
