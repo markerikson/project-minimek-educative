@@ -5,6 +5,7 @@ import {Form, Dropdown, Grid, Button} from "semantic-ui-react";
 import FormEditWrapper from "common/components/FormEditWrapper";
 
 import {getEntitiesSession} from "features/entities/entitySelectors";
+import {getEditingEntitiesSession} from "features/editing/editingSelectors";
 
 import {
     selectCurrentPilot,
@@ -53,16 +54,20 @@ const mapState = (state) => {
 
     const currentPilot = selectCurrentPilot(state);
 
-    const session = getEntitiesSession(state);
-    const {Pilot} = session;
-
-    if(Pilot.hasId(currentPilot)) {
-        pilot = Pilot.withId(currentPilot).ref;
-    }
-
     const pilotIsSelected = Boolean(currentPilot);
     const isEditingPilot = selectIsEditingPilot(state);
 
+    if(pilotIsSelected) {
+        const session = isEditingPilot ?
+            getEditingEntitiesSession(state) :
+            getEntitiesSession(state);
+
+        const {Pilot} = session;
+
+        if(Pilot.hasId(currentPilot)) {
+            pilot = Pilot.withId(currentPilot).ref;
+        }
+    }
 
     return {pilot, pilotIsSelected, isEditingPilot}
 }
@@ -88,6 +93,16 @@ export class PilotDetails  extends Component {
         const {id} = this.props.pilot;
 
         this.props.updateEntity("Pilot", id, newValues);
+    }
+
+    onStartEditingClicked = () => {
+        const {id} = this.props.pilot;
+        this.props.startEditingPilot(id);
+    }
+
+    onStopEditingClicked = () => {
+        const {id} = this.props.pilot;
+        this.props.stopEditingPilot(id);
     }
 
     render() {
@@ -190,7 +205,7 @@ export class PilotDetails  extends Component {
                         primary
                         disabled={!canStartEditing}
                         type="button"
-                        onClick={startEditingPilot}
+                        onClick={this.onStartEditingClicked}
                     >
                         Start Editing
                     </Button>
@@ -198,7 +213,7 @@ export class PilotDetails  extends Component {
                         secondary
                         disabled={!canStopEditing}
                         type="button"
-                        onClick={stopEditingPilot}
+                        onClick={this.onStopEditingClicked}
                     >
                         Stop Editing
                     </Button>
