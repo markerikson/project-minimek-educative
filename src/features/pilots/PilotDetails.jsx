@@ -20,7 +20,12 @@ import {getValueFromEvent} from "common/utils/clientUtils";
 import {
     startEditingPilot,
     stopEditingPilot,
+    cancelEditingPilot,
 } from "./pilotsActions";
+
+import {
+    resetEditedItem,
+} from "features/editing/editingActions";
 
 
 const RANKS = [
@@ -76,6 +81,8 @@ const actions = {
     startEditingPilot,
     stopEditingPilot,
     editItemAttributes,
+    resetEditedItem,
+    cancelEditingPilot,
 }
 
 export class PilotDetails  extends Component {
@@ -103,6 +110,11 @@ export class PilotDetails  extends Component {
         this.props.stopEditingPilot();
     }
 
+    onResetClicked = () => {
+        const {id} = this.props.pilot;
+        this.props.resetEditedItem("Pilot", id);
+    }
+
     render() {
         const {pilot={}, pilotIsSelected = false, isEditingPilot = false } = this.props;
         const {startEditingPilot, stopEditingPilot} = this.props;
@@ -118,6 +130,8 @@ export class PilotDetails  extends Component {
 
         const canStartEditing = pilotIsSelected && !isEditingPilot;
         const canStopEditing = pilotIsSelected && isEditingPilot;
+
+        const buttonWidth = 140;
 
         return (
             <Form size="large">
@@ -204,6 +218,7 @@ export class PilotDetails  extends Component {
                         disabled={!canStartEditing}
                         type="button"
                         onClick={this.onStartEditingClicked}
+                        style={{width : buttonWidth, marginRight : 10}}
                     >
                         Start Editing
                     </Button>
@@ -211,9 +226,29 @@ export class PilotDetails  extends Component {
                         secondary
                         disabled={!canStopEditing}
                         type="button"
+                        style={{width : buttonWidth}}
                         onClick={this.onStopEditingClicked}
                     >
-                        Stop Editing
+                        Save Edits
+                    </Button>
+                </Grid.Row>
+                <Grid.Row width={16}>
+                    <Button
+                        disabled={!canStopEditing}
+                        type="button"
+                        onClick={this.onResetClicked}
+                        style={{width : buttonWidth, marginRight : 10}}
+                    >
+                        Reset Values
+                    </Button>
+                    <Button
+                        negative
+                        disabled={!canStopEditing}
+                        type="button"
+                        style={{width : buttonWidth}}
+                        onClick={this.props.cancelEditingPilot}
+                    >
+                        Cancel Edits
                     </Button>
                 </Grid.Row>
             </Form>
