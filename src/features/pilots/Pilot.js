@@ -28,4 +28,8 @@ export default class Pilot extends Model {
         return {...this.ref};
     }
 
+    updateFrom(otherPilot) {
+        this.update(otherPilot.ref);
+    }
+
 }

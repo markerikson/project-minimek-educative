@@ -17,5 +17,9 @@ export default class Mech extends Model {
         return {...this.ref};
     }
 
+    updateFrom(otherMech) {
+        this.update(otherMech.ref);
+    }
+
 }
 

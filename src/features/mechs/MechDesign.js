@@ -17,4 +17,8 @@ export default class MechDesign extends Model {
         return {...this.ref};
     }
 
+    updateFrom(otherDesign) {
+        this.update(otherDesign.ref);
+    }
+
 }
