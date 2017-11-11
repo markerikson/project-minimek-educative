@@ -117,7 +117,6 @@ export class PilotDetails  extends Component {
 
     render() {
         const {pilot={}, pilotIsSelected = false, isEditingPilot = false } = this.props;
-        const {startEditingPilot, stopEditingPilot} = this.props;
 
         const {
             name = "",

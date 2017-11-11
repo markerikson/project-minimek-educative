@@ -12,8 +12,6 @@ import PilotDetails from "./PilotDetails";
 
 class Pilots extends Component {
     render() {
-        const {pilots = [], selectPilot, currentPilot} = this.props;
-
         return (
             <Segment>
                 <Grid>
