@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Form, Dropdown, Segment} from "semantic-ui-react";
 
 import FormEditWrapper from "common/components/FormEditWrapper";
-import ColorPickerButton from "common/components/ColorPickerButton";
+import ColorPickerButton from "common/components/ColorPicker/ColorPickerButton";
 
 import {getValueFromEvent} from "common/utils/clientUtils";
 
