@@ -10,7 +10,7 @@ import {showColorPicker} from "common/components/ColorPicker/colorPickerActions"
 
 
 import {selectUnitInfo} from "./unitInfoSelectors";
-import {updateUnitInfo} from "./unitInfoActions";
+import {updateUnitInfo, setUnitColor} from "./unitInfoActions";
 
 
 const FACTIONS = [
@@ -46,7 +46,9 @@ class UnitInfo extends Component {
     }
 
     onColorClicked = () => {
-        this.props.showColorPicker(this.props.unitInfo.color);
+        const onColorPickedAction = setUnitColor();
+
+        this.props.showColorPicker(this.props.unitInfo.color, onColorPickedAction);
     }
 
     render() {
