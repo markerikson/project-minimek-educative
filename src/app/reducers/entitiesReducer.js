@@ -1,6 +1,6 @@
 import {createReducer} from "common/utils/reducerUtils";
 
-import orm from "app/orm"
+import orm from "app/orm";
 
 import {DATA_LOADED} from "features/tools/toolConstants";
 

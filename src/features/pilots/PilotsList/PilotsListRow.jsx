@@ -1,12 +1,17 @@
 import React from "react";
 import {connect} from "react-redux";
-import {Table} from "semantic-ui-react";
+import {
+    Table,
+    Button,
+    Icon,
+} from "semantic-ui-react";
 import _ from "lodash";
 
-import orm from "app/orm";
+import {getEntitiesSession} from "features/entities/entitySelectors";
+import {deleteEntity} from "features/entities/entityActions";
 
 const mapState = (state, ownProps) => {
-    const session = orm.session(state.entities);
+    const session = getEntitiesSession(state);
     const {Pilot} = session;
 
     let pilot;
@@ -37,7 +42,11 @@ const mapState = (state, ownProps) => {
     return {pilot};
 }
 
-const PilotsListRow = ({pilot={}, onPilotClicked=_.noop, selected}) => {
+const actions = {
+    deleteEntity,
+};
+
+const PilotsListRow = ({pilot={}, onPilotClicked=_.noop, selected, deleteEntity}) => {
     const {
         id = null,
         name = "",
@@ -48,8 +57,17 @@ const PilotsListRow = ({pilot={}, onPilotClicked=_.noop, selected}) => {
         mechType = "",
     } = pilot;
 
+    const onDeleteClicked = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        deleteEntity("Pilot", id);
+    }
+
+    const onRowClicked = () => onPilotClicked(id);
+
+
     return (
-        <Table.Row onClick={() => onPilotClicked(id)} active={selected}>
+        <Table.Row onClick={onRowClicked} active={selected}>
             <Table.Cell>
                 {name}
             </Table.Cell>
@@ -65,8 +83,20 @@ const PilotsListRow = ({pilot={}, onPilotClicked=_.noop, selected}) => {
             <Table.Cell>
                 {mechType}
             </Table.Cell>
+            <Table.Cell>
+                <Button
+                    compact
+                    basic
+                    circular
+                    size="tiny"
+                    color="red"
+                    icon={<Icon  name="delete" />}
+                    onClick={onDeleteClicked}
+                >
+                </Button>
+            </Table.Cell>
         </Table.Row>
     );
 }
 
-export default connect(mapState)(PilotsListRow);
+export default connect(mapState, actions)(PilotsListRow);

@@ -5,14 +5,14 @@ import {Table} from "semantic-ui-react";
 import MechsListHeader from "./MechsListHeader";
 import MechsListRow from "./MechsListRow";
 
-import orm from "app/orm";
+import {getEntitiesSession} from "features/entities/entitySelectors";
 
 import {selectMech} from "../mechsActions";
 import {selectCurrentMech} from "../mechsSelectors";
 
 
 const mapState = (state) => {
-    const session = orm.session(state.entities);
+    const session = getEntitiesSession(state);
     const {Mech} = session;
 
     const mechs = Mech.all().toModelArray().map(mechModel => mechModel.getId());

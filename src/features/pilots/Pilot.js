@@ -23,4 +23,13 @@ export default class Pilot extends Model {
         // class itself, not an instance
         return this.create(pilotData);
     }
+
+    toJSON() {
+        return {...this.ref};
+    }
+
+    updateFrom(otherPilot) {
+        this.update(otherPilot.ref);
+    }
+
 }

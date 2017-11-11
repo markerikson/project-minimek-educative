@@ -4,14 +4,15 @@ import {Form, Dropdown, Grid, Button} from "semantic-ui-react";
 
 import FormEditWrapper from "common/components/FormEditWrapper";
 
-import orm from "app/orm";
+import {getEntitiesSession} from "features/entities/entitySelectors";
+import {getEditingEntitiesSession} from "features/editing/editingSelectors";
 
 import {
     selectCurrentPilot,
     selectIsEditingPilot
 } from "./pilotsSelectors";
 
-import {updateEntity} from "features/entities/entityActions";
+import {editItemAttributes} from "features/editing/editingActions";
 
 import {getValueFromEvent} from "common/utils/clientUtils";
 
@@ -19,7 +20,12 @@ import {getValueFromEvent} from "common/utils/clientUtils";
 import {
     startEditingPilot,
     stopEditingPilot,
+    cancelEditingPilot,
 } from "./pilotsActions";
+
+import {
+    resetEditedItem,
+} from "features/editing/editingActions";
 
 
 const RANKS = [
@@ -53,16 +59,20 @@ const mapState = (state) => {
 
     const currentPilot = selectCurrentPilot(state);
 
-    const session = orm.session(state.entities);
-    const {Pilot} = session;
-
-    if(Pilot.hasId(currentPilot)) {
-        pilot = Pilot.withId(currentPilot).ref;
-    }
-
     const pilotIsSelected = Boolean(currentPilot);
     const isEditingPilot = selectIsEditingPilot(state);
 
+    if(pilotIsSelected) {
+        const session = isEditingPilot ?
+            getEditingEntitiesSession(state) :
+            getEntitiesSession(state);
+
+        const {Pilot} = session;
+
+        if(Pilot.hasId(currentPilot)) {
+            pilot = Pilot.withId(currentPilot).ref;
+        }
+    }
 
     return {pilot, pilotIsSelected, isEditingPilot}
 }
@@ -70,7 +80,9 @@ const mapState = (state) => {
 const actions = {
     startEditingPilot,
     stopEditingPilot,
-    updateEntity,
+    editItemAttributes,
+    resetEditedItem,
+    cancelEditingPilot,
 }
 
 export class PilotDetails  extends Component {
@@ -79,7 +91,7 @@ export class PilotDetails  extends Component {
         const newValues = getValueFromEvent(e);
         const {id} = this.props.pilot;
 
-        this.props.updateEntity("Pilot", id, newValues);
+        this.props.editItemAttributes("Pilot", id, newValues);
     }
 
     onDropdownChanged = (e, result) => {
@@ -87,7 +99,20 @@ export class PilotDetails  extends Component {
         const newValues = { [name] : value};
         const {id} = this.props.pilot;
 
-        this.props.updateEntity("Pilot", id, newValues);
+        this.props.editItemAttributes("Pilot", id, newValues);
+    }
+
+    onStartEditingClicked = () => {
+        this.props.startEditingPilot();
+    }
+
+    onStopEditingClicked = () => {
+        this.props.stopEditingPilot();
+    }
+
+    onResetClicked = () => {
+        const {id} = this.props.pilot;
+        this.props.resetEditedItem("Pilot", id);
     }
 
     render() {
@@ -105,6 +130,8 @@ export class PilotDetails  extends Component {
 
         const canStartEditing = pilotIsSelected && !isEditingPilot;
         const canStopEditing = pilotIsSelected && isEditingPilot;
+
+        const buttonWidth = 140;
 
         return (
             <Form size="large">
@@ -190,7 +217,8 @@ export class PilotDetails  extends Component {
                         primary
                         disabled={!canStartEditing}
                         type="button"
-                        onClick={startEditingPilot}
+                        onClick={this.onStartEditingClicked}
+                        style={{width : buttonWidth, marginRight : 10}}
                     >
                         Start Editing
                     </Button>
@@ -198,9 +226,29 @@ export class PilotDetails  extends Component {
                         secondary
                         disabled={!canStopEditing}
                         type="button"
-                        onClick={stopEditingPilot}
+                        style={{width : buttonWidth}}
+                        onClick={this.onStopEditingClicked}
                     >
-                        Stop Editing
+                        Save Edits
+                    </Button>
+                </Grid.Row>
+                <Grid.Row width={16}>
+                    <Button
+                        disabled={!canStopEditing}
+                        type="button"
+                        onClick={this.onResetClicked}
+                        style={{width : buttonWidth, marginRight : 10}}
+                    >
+                        Reset Values
+                    </Button>
+                    <Button
+                        negative
+                        disabled={!canStopEditing}
+                        type="button"
+                        style={{width : buttonWidth}}
+                        onClick={this.props.cancelEditingPilot}
+                    >
+                        Cancel Edits
                     </Button>
                 </Grid.Row>
             </Form>
