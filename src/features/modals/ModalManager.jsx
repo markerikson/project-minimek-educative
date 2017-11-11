@@ -2,9 +2,12 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import TestModal from "./TestModal";
+import ColorPickerDialog from "common/components/ColorPickerDialog";
+
 
 const modalComponentLookupTable = {
-    TestModal
+    TestModal,
+    ColorPickerDialog,
 };
 
 const mapState = (state) => ({currentModals : state.modals});
