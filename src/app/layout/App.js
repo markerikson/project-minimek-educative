@@ -12,6 +12,8 @@ import Pilots from "features/pilots/Pilots";
 import Mechs from "features/mechs/Mechs";
 import UnitOrganization from "features/unitOrganization/UnitOrganization";
 import Tools from "features/tools/Tools";
+import ModalManager from "features/modals/ModalManager";
+
 
 
 class App extends Component {
@@ -26,6 +28,7 @@ class App extends Component {
 
         return (
             <div className="App">
+                <ModalManager />
                 <div className="App-header">
                     <Header inverted as="h1">Project Mini-Mek</Header>
                 </div>
