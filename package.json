@@ -5,6 +5,7 @@
   "dependencies": {
     "lodash": "4.17.4",
     "react": "^15.6.1",
+    "react-color": "2.13.8",
     "react-dom": "^15.6.1",
     "react-redux": "5.0.6",
     "react-scripts": "1.0.11",
