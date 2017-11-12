@@ -9,6 +9,8 @@ import mechsReducer from "features/mechs/mechsReducer";
 import tabReducer from "features/tabs/tabsReducer";
 import unitInfoReducer from "features/unitInfo/unitInfoReducer";
 import modalsReducer from "features/modals/modalReducer.js";
+import contextMenuReducer from "features/contextMenus/contextMenuReducer";
+
 
 
 import entityCrudReducer from "features/entities/entityReducer";
@@ -23,6 +25,7 @@ const combinedReducer = combineReducers({
     unitInfo : unitInfoReducer,
     tabs : tabReducer,
     modals : modalsReducer,
+    contextMenu : contextMenuReducer,
 });
 
 const rootReducer = reduceReducers(
