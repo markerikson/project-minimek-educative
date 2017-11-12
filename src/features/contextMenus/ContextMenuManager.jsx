@@ -4,12 +4,13 @@ import Portal from 'react-portal';
 
 import ContextMenu from "./ContextMenu";
 import TestContextMenu from "./TestContextMenu";
-
+import PilotsListItemMenu from "features/pilots/PilotsList/PilotsListItemMenu";
 
 import {selectContextMenu} from "./contextMenuSelectors";
 
 const menuTypes = {
     TestContextMenu,
+    PilotsListItemMenu,
 };
 
 
