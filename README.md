@@ -1,6 +1,6 @@
 ## Project Mini-Mek: Educative Course Edition
 
-A sample application to accompany the **Practical Redux* Educative course by Mark Erikson, demonstrating various useful Redux techniques.
+A sample application to accompany the **Practical Redux** Educative course by Mark Erikson, demonstrating various useful Redux techniques.
 
 This is a miniature version of the [MekHQ](http://megamek.info/mekhq) Battletech campaign force manager tool.  The tentative list of planned features includes:
 
