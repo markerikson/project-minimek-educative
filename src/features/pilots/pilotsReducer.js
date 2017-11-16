@@ -44,7 +44,7 @@ export function stopEditingPilot(state, payload) {
 
 export function stopEditingIfDeleted(state, payload) {
     const {itemType, itemID} = payload;
-    const {isEditing, currentPilot} = state;
+    const {currentPilot} = state;
 
     if(itemType === "Pilot" && itemID === currentPilot) {
         return {

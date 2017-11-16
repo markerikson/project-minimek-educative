@@ -17,3 +17,6 @@ export function getValueFromEvent(e) {
 
     return newValues;
 }
+
+
+export const noop = () => {};
