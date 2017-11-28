@@ -2,7 +2,7 @@
 
 A sample application to accompany the **Practical Redux** Educative course by Mark Erikson, demonstrating various useful Redux techniques.
 
-This is a miniature version of the [MekHQ](http://megamek.info/mekhq) Battletech campaign force manager tool.  The tentative list of planned features includes:
+This is a miniature version of the [MekHQ](https://www.megamek.org/mekhq) Battletech campaign force manager tool.  The tentative list of planned features includes:
 
 - Load JSON data describing the pilots and Battlemechs in a combat force
 - For both pilots and Battlemechs:
